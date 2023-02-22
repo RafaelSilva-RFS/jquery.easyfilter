@@ -1,5 +1,6 @@
 # jQuery EasyFilter
 The easiest way to filter anything!
+### Check the [live demo and documentation](https://rafaelsilva-rfs.github.io/jquery.easyfilter/)
 
 ## How to use
 
