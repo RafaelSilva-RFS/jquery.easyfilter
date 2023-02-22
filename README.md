@@ -16,10 +16,11 @@ The easiest way to filter anything!
 #### 3. Create the markup, you will need a `container` where you will put elements with `data-easyfilter` attribute that have the Click Listener Event and elements with `data-easyitem` attribute that will be filtered.
 ```html
 <div id="easy-filter-wrap">
-     <button type="button "data-easyfilter="*"> All </button>
-     <button type="button "data-easyfilter="item01"> Item 01 </button>
-     <button type="button "data-easyfilter="item02"> Item 02 </button>
-     <button type="button "data-easyfilter="item03"> Item 03 </button>
+     <button type="button" data-easyfilter="*"> All </button>
+     <button type="button" data-easyfilter="item01,item02"> Item 01 and 02 </button>
+     <button type="button" data-easyfilter="item01"> Item 01 </button>
+     <button type="button" data-easyfilter="item02"> Item 02 </button>
+     <button type="button" data-easyfilter="item03"> Item 03 </button>
      <br /> <br />
      <div data-easyitem="item01"> Item 01 </div>
      <div data-easyitem="item02"> Item 02 </div>

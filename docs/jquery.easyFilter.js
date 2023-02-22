@@ -10,7 +10,7 @@
  */
 
 ;
-(function($, window, document, undefined) {
+(function ($, window, document, undefined) {
     "use strict";
 
     // Default options
@@ -38,20 +38,20 @@
     $.extend(EasyFilter.prototype, {
 
 
-        init: function() {
+        init: function () {
             var object = this;
 
             this._addEvents();
             this.filter(object.options.firstFilter);
         },
 
-        filter: function(value) {
+        filter: function (value) {
             var object = this;
 
             var showItems = [];
             var hiddeItems = [];
 
-            $(this.wrap).find('[data-easyitem]').each(function() {
+            $(this.wrap).find('[data-easyitem]').each(function () {
                 var item = $(this);
 
                 // Compare if the ['data-easyfilter'] is diferent from *
@@ -69,35 +69,35 @@
             object._toggleItems(hiddeItems, showItems);
         },
 
-        _slideItemsEffect: function(value, showItems) {
+        _slideItemsEffect: function (value, showItems) {
             var object = this;
-            $(value).slideUp(object.options.duration, function() {
-                setTimeout(function() {
-                    $.each(showItems, function(index, value) {
-                        $(value).slideDown(object.options.duration, function() {});
+            $(value).slideUp(object.options.duration, function () {
+                setTimeout(function () {
+                    $.each(showItems, function (index, value) {
+                        $(value).slideDown(object.options.duration, function () { });
                     });
                 }, 300)
             });
         },
 
-        _fadeItemsEffect: function(value, showItems) {
+        _fadeItemsEffect: function (value, showItems) {
             var object = this;
-            $(value).fadeOut(object.options.duration, function() {
-                setTimeout(function() {
-                    $.each(showItems, function(index, value) {
-                        $(value).fadeIn(object.options.duration, function() {});
+            $(value).fadeOut(object.options.duration, function () {
+                setTimeout(function () {
+                    $.each(showItems, function (index, value) {
+                        $(value).fadeIn(object.options.duration, function () { });
                     });
                 }, 300)
             });
         },
 
-        _toggleItems: function(hiddeItems, showItems) {
+        _toggleItems: function (hiddeItems, showItems) {
             var object = this;
 
             // Compare if there is more than one item to hide
             if (hiddeItems.length > 0) {
                 // Hide and show item from arrays
-                $.each(hiddeItems, function(index, value) {
+                $.each(hiddeItems, function (index, value) {
 
                     switch (object.options.animation) {
                         case 'slide':
@@ -113,36 +113,50 @@
                 });
             } else {
                 //Show all items
-                $.each(showItems, function(index, value) {
+                $.each(showItems, function (index, value) {
 
                     switch (object.options.animation) {
                         case 'slide':
-                            $(value).slideDown(object.options.duration, function() {});
+                            $(value).slideDown(object.options.duration, function () { });
                             break;
                         case 'fade':
-                            $(value).fadeIn(object.options.duration, function() {});
+                            $(value).fadeIn(object.options.duration, function () { });
                             break;
                         default:
-                            $(value).slideDown(object.options.duration, function() {});
+                            $(value).slideDown(object.options.duration, function () { });
                     }
                 });
             }
         },
 
-        _addEvents: function() {
+        _addEvents: function () {
             var object = this;
 
             // Click
-            $(this.wrap).find('[data-easyfilter]').click(function() {
-                object.filter($(this).attr('data-easyfilter'));
+            $(this.wrap).find('[data-easyfilter]').click(function () {
+
+                let filterItems = $(this).attr('data-easyfilter');
+
+                if (filterItems.indexOf(",") >= 0) {
+                    filterItems = filterItems.split(",");
+                }
+
+                if (jQuery.type(filterItems) == "array") {
+                    $(filterItems).each(function (index, item) {
+                        object.filter(item);
+                    });
+                } else {
+                    object.filter(filterItems);
+                }
+
             })
         },
 
     });
 
     // Easy Filter Wraper
-    $.fn.easyFilter = function(options) {
-        this.each(function() {
+    $.fn.easyFilter = function (options) {
+        this.each(function () {
             new EasyFilter(this, options)
         });
     };
